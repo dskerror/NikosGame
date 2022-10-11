@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikos Game</title>
+</head>
+<body>
+    <canvas id="myCanvas" width="1200" height="580">
+    </canvas>
+
+    <script>
+
+        //GAME LOOP
+        setInterval(onTimerTick, 1000); // 33 milliseconds = ~ 30 frames per sec
+        let moveLeft = 0;
+        function onTimerTick() {
+                    
+                     //Esto busca el canvas        
+                    let canvas=document.getElementById("myCanvas");
+                    let context=canvas.getContext('2d');
+                    //context.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    DrawMario(context);
+                    DrawLuckyBlock(context);
+                    DrawGoomba(context);
+                    DrawFloorBlock(context);
+                    DrawBackground(context, canvas);
+
+        }
+
+        function DrawLuckyBlock(context){
+            var imageLuckyBlock=new Image();
+            imageLuckyBlock.onload=function(){
+                context.drawImage(imageLuckyBlock,200,10,imageLuckyBlock.width/2,imageLuckyBlock.height/2);
+            };
+            imageLuckyBlock.src="images/lucky block.png";
+        }
+
+        function DrawMario(context){
+          //Esto dibuja a mario
+            var imageMario=new Image();
+            imageMario.onload=function(){
+                context.drawImage(imageMario,moveLeft,290,imageMario.width/10,imageMario.height/10);
+            };
+            imageMario.src="images/mario.png";
+            moveLeft += 10;
+        }
+        function DrawBackground(context, canvas){
+            context.fillStyle = "#5C94FC";
+            context.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function DrawFloorBlock(context){
+            var imageBlock=new Image();
+            imageBlock.onload=function(){
+                var blockPosition = 132
+                for (let index = 0; index < 10; index++) {
+                    context.drawImage(imageBlock,blockPosition*index,446,imageBlock.width/3,imageBlock.height/3);
+                }
+            };
+            imageBlock.src="images/mario block.png";
+        }
+
+        function DrawGoomba(context){
+            var imageGoomba=new Image();
+            imageGoomba.onload=function(){
+                context.drawImage(imageGoomba,700,333,imageGoomba.width/3.5,imageGoomba.height/3.5);
+            };
+            imageGoomba.src="images/goomba.png";
+        }
+
+    </script>
+</body>
+</html>
